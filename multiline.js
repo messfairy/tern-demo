@@ -17,6 +17,7 @@ var stripIndent = function (str) {
 
 // start matching after: comment start block => ! or @preserve => optional whitespace => newline
 // stop matching before: last newline => optional whitespace => comment end block
+//用闭包缓存，不要每次都新建
 var reCommentContents = /\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\/\s*'(\w+)'/;
 
 //引入lodash编译，text返回indent，template返回编译模板函数
