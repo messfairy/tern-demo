@@ -17,7 +17,7 @@ var stripIndent = function (str) {
 
 // start matching after: comment start block => ! or @preserve => optional whitespace => newline
 // stop matching before: last newline => optional whitespace => comment end block
-var reCommentContents = /\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\//;
+var reCommentContents = /\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\/\s*'(\w+)'/;
 
 //引入lodash编译，text返回indent，template返回编译模板函数
 var multiline = module.exports = function (fn) {
@@ -30,8 +30,9 @@ var multiline = module.exports = function (fn) {
   if (!match) {
     throw new TypeError('Multiline comment missing.');
   }
-
+  console.log(match[2]);
   return match[1];
+    //return {type: match[2]||'', value: match[1]};
 };
 
 multiline.stripIndent = function (fn) {
@@ -42,22 +43,17 @@ var abcf = function(){/*@preserve
  hahahahahha
  zhdflj
  fkldkf
- */return 'template'};
-var abc = multiline.stripIndent(abcf);
-
+ */'template'};
 var adcf = function(){/*@preserve
  hahahahahha
  zhdflj
  fkldkf
- */return 'text'};
+ */'text'};
 
-var adc = multiline(adcf);
-console.log(abcf.toString());
-console.log(abcf());
+var abc = multiline.stripIndent(abcf);
 console.log(abc);
 console.log(abc.length);
 console.log();
-console.log(adcf.toString());
-console.log(adcf());
+var adc = multiline(adcf);
 console.log(adc);
 console.log(adc.length);
