@@ -19,6 +19,7 @@ var stripIndent = function (str) {
 // stop matching before: last newline => optional whitespace => comment end block
 var reCommentContents = /\/\*!?(?:\@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\//;
 
+//引入lodash编译，text返回indent，template返回编译模板函数
 var multiline = module.exports = function (fn) {
   if (typeof fn !== 'function') {
     throw new TypeError('Expected a function');
@@ -51,10 +52,12 @@ var adcf = function(){/*@preserve
  */return 'text'};
 
 var adc = multiline(adcf);
+console.log(abcf.toString());
 console.log(abcf());
 console.log(abc);
 console.log(abc.length);
 console.log();
+console.log(adcf.toString());
 console.log(adcf());
 console.log(adc);
 console.log(adc.length);
