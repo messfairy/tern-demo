@@ -1,0 +1,102 @@
+{
+  "name": "redux-undo",
+  "version": "1.0.0-beta8",
+  "description": "simple undo/redo functionality for redux state containers",
+  "main": "lib/index.js",
+  "jspm": {
+    "main": "src/index.js",
+    "format": "esm"
+  },
+  "scripts": {
+    "build": "npm run build:commonjs && npm run build:umd && npm run build:umd:min && npm run build:es",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel src --out-dir lib",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es",
+    "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack",
+    "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack",
+    "clean": "rimraf lib dist es",
+    "lint": "eslint webpack.config.babel.js src test",
+    "prepublish": "npm run lint && npm run test && npm run clean && npm run build",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --compilers js:babel-core/register",
+    "test:bail": "npm run test:watch -- --bail",
+    "test:cov": "babel-node ./node_modules/.bin/isparta cover --root src/ ./node_modules/.bin/_mocha",
+    "test:coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:watch": "npm run test -- --watch",
+    "docs:clean": "rimraf _book",
+    "docs:prepare": "gitbook install",
+    "docs:build": "npm run docs:prepare && gitbook build -g omnidan/redux-undo",
+    "docs:watch": "npm run docs:prepare && gitbook serve",
+    "docs:publish": "npm run docs:clean && npm run docs:build && cp CNAME _book && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:omnidan/redux-undo gh-pages --force"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omnidan/redux-undo.git"
+  },
+  "keywords": [
+    "redux",
+    "undo",
+    "redo",
+    "flux",
+    "time travel"
+  ],
+  "author": {
+    "name": "Daniel Bugl",
+    "email": "me@omnidan.net",
+    "url": "https://github.com/omnidan"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omnidan/redux-undo/issues"
+  },
+  "homepage": "https://github.com/omnidan/redux-undo",
+  "devDependencies": {
+    "babel-cli": "^6.7.7",
+    "babel-core": "^6.7.7",
+    "babel-eslint": "^6.0.3",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-object-rest-spread": "^6.5.0",
+    "babel-preset-es2015": "^6.5.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
+    "cross-env": "^1.0.7",
+    "eslint": "^2.8.0",
+    "eslint-config-standard": "^5.1.0",
+    "eslint-plugin-promise": "^1.0.8",
+    "eslint-plugin-standard": "^1.3.2",
+    "expect": "^1.18.0",
+    "gitbook-cli": "^2.1.3",
+    "isparta": "^4.0.0",
+    "mocha": "^2.4.5",
+    "mocha-lcov-reporter": "^1.2.0",
+    "rimraf": "^2.5.2",
+    "webpack": "^1.12.14"
+  },
+  "dependencies": {
+    "redux": "^3.5.1"
+  },
+  "gitHead": "2fea8cba0b99a5cdfaebcf2609b8e0268724686a",
+  "_id": "redux-undo@1.0.0-beta8",
+  "_shasum": "26225ace87742cb1a2407d79825b848850379a42",
+  "_from": "redux-undo@>=1.0.0-beta2 <2.0.0",
+  "_npmVersion": "3.6.0",
+  "_nodeVersion": "5.7.0",
+  "_npmUser": {
+    "name": "omnidan",
+    "email": "me@omnidan.net"
+  },
+  "dist": {
+    "shasum": "26225ace87742cb1a2407d79825b848850379a42",
+    "tarball": "https://registry.npmjs.org/redux-undo/-/redux-undo-1.0.0-beta8.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "omnidan",
+      "email": "daniel.bugl@touchlay.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-16-east.internal.npmjs.com",
+    "tmp": "tmp/redux-undo-1.0.0-beta8.tgz_1462301612048_0.8333343320991844"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/redux-undo/-/redux-undo-1.0.0-beta8.tgz"
+}
