@@ -33,8 +33,16 @@ openPage
 rightmenu
 active
 
+redux函数式，纯函数规约和高阶函数分治
 
-：
+前言：学习redux之前，曾用过一些集合遍历函数，知道闭包，就自以为了解函数式了。直到看到redux源码高阶嵌套高阶，开始恐惧和兴奋；又闻函数式是图灵完备的，再试想lisp macro编译时生成新函数，函数式到底有多神奇？
+
+redux是一个js状态管理库，加一组规约。
+单一数据源，state只读，纯函数执行修改
+特点是状态可预测。
+本文只关注函数式在redux中的应用，有兴趣者移步redux官文
+
+基本步骤：
 1.声明state树，一般为
 2.声明一组action对象，描述状态更新请求，action.type表执行动作，其他属性表请求数据；
 2.编写一组reducer纯函数，入参old state和action，根据action.type执行状态变换逻辑，不直接修改old state，而是新建并返回new state；
@@ -74,6 +82,3 @@ store enhancer
 专注于数据结构
 因为没有了类结构和对象结构
 状态更新时，一步到位，而不是分层处理
-
-
-
