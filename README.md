@@ -32,3 +32,53 @@ selectTree
 openPage
 rightmenu
 active
+
+redux函数式，纯函数规约和高阶函数分治
+
+前言：学习redux之前，曾用过一些集合遍历函数，知道闭包，就自以为了解函数式了。直到看到redux源码高阶嵌套高阶，开始恐惧和兴奋；又闻函数式是图灵完备的，再试想lisp macro编译时生成新函数，函数式到底有多神奇？
+
+redux是一个js状态管理库，加一组规约。
+单一数据源，state只读，纯函数执行修改
+特点是状态可预测。
+本文只关注函数式在redux中的应用，有兴趣者移步redux官文
+
+基本步骤：
+1.声明state树，一般为
+2.声明一组action对象，描述状态更新请求，action.type表执行动作，其他属性表请求数据；
+2.编写一组reducer纯函数，入参old state和action，根据action.type执行状态变换逻辑，不直接修改old state，而是新建并返回new state；
+3.关联reducers，合成一个hash map，即rootReducer；
+4.调用createStore(rootReducer)返回store；
+5.更新状态时，store.dispatch(action)；
+6.获取状态时，store.getState()。
+dispatch Redux会分发action和old state至所有reducer，每个reducer返回new state。
+
+高级用法：
+在dispatch前加入middleware，帮助action扩展获得更大灵活性
+redux充分利用了纯函数特性和高阶函数扩展
+
+纯函数特性
+不修改任何外部状态
+性质：
+两次结果必定一致
+状态可预测
+这带来巨大灵活性
+1.root reducer随root state拆分，子reducer进一步拆分合并自由组合，只要保持参数一致，可任意粒度复用，模块化组合；
+2.reducers执行顺序无需一致，结果也一致，流程解耦；组合时木有顾虑
+3.结果可缓存，因为不会有副作用，相同参数必定导致相同结果
+4.测试，可预测，状态异常可控，状态一旦异常，不会传播造成不可预知的bug
+
+闭包和高阶函数的用途
+函数可接受函数参数，返回新函数
+oo领域的类扩展、对象扩展、aop等无法相提并论
+保持函数参数一致
+redux中的应用主要有：
+reducer enhancer 接受reducer，生成reducer
+dispatch enhancer
+接受action，生产action
+store enhancer
+接受createStore，生成createStore
+
+对范式的改变
+专注于数据结构
+因为没有了类结构和对象结构
+状态更新时，一步到位，而不是分层处理
